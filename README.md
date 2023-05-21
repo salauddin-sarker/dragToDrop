@@ -1,2 +1,2 @@
 # dragToDrop
- site is live at https://salauddin-sarker.github.io/dragtoDrop/
+ site is live at https://salauddin-sarker.github.io/dragToDrop/
