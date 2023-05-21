@@ -1,29 +1,41 @@
-const sortableList = document.querySelector(".sortable_list");
-const items = document.querySelectorAll(".item");
+const tabBox = document.querySelector(".tab_box"),
+allTabs = document.querySelectorAll(".tab"),
+arrowIcons = document.querySelectorAll(".icon i");
 
-items.forEach(item => {
-    item.addEventListener("dragstart", () => {
-        // Adding dragging class to item after delay
-        setTimeout(() => item.classList.add("dragging"),0);
+let isDragging = false;
+const handleIcons = () => {
+    let scrollVal = Math.round(tabBox.scrollLeft);
+    let maxScrollablewidth = tabBox.scrollWidth - tabBox.clientWidth;
+    arrowIcons[0].parentElement.style.display = scrollVal > 0 ? "flex" : "none";
+    arrowIcons[1].parentElement.style.display = maxScrollablewidth > scrollVal ? "flex" : "none";
+}
+allTabs.forEach(tab => {
+    tab.addEventListener("click", () =>{
+        // removing active  class from the previous tab & adding to current clickd tab
+        tabBox.querySelector(".active").classList.remove("active");
+        tab.classList.add("active");
     });
-    // Removing dragging class item on dragend event
-    item.addEventListener("dragend", () => item.classList.remove("dragging"))
+});
+arrowIcons.forEach(icon => {
+    icon.addEventListener("click", () =>{
+        // if clicked icon is left, reduce 350 from tabBox scrollLeft else add
+        tabBox.scrollLeft += icon.id === "left" ? -350 :  350;
+        setTimeout(() => handleIcons(), 50); // calling handleIcons after 50 miliseconds
+    });
 });
 
-const initSortableList = (e) => {
-    e.preventDefault();
-    const draggingItem = sortableList.querySelector(".dragging");
-   // Getting all items except currently dragging and making array of them
-   const siblings = [...sortableList.querySelectorAll(".item:not(.dragging)")];
-
-   // Finding to the sibiling after which the dragging item should be placesd
-   let nextSibling = siblings.find(sibling => {
-    return e.clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
-   });
-
-   // Insertting the dragging item before the found sibling
-   sortableList.insertBefore(draggingItem, nextSibling);
+const dragging = (e) => {
+    if(!isDragging) return;
+    tabBox.classList.add("dragging");
+    tabBox.scrollLeft -= e.movementX;
+    handleIcons();
 }
 
-sortableList.addEventListener("dragover", initSortableList);
-sortableList.addEventListener("dragenter", e => e.preventDefault());
+const dragStop = () => {
+    isDragging = false;
+    tabBox.classList.remove("dragging");
+}
+
+tabBox.addEventListener("mousedown", () => isDragging = true);
+tabBox.addEventListener("mousemove", dragging);
+document.addEventListener("mouseup",dragStop);

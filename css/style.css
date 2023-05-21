@@ -3,54 +3,91 @@
     margin: 0;
     padding: 0;
 }
-body{
-    align-items: center;
-    background: #2980b9;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-}
 a{
     text-decoration: none;
 }
 ul{
     list-style: none;
 }
-.wrapper{}
-.sortable_list{
+body{
+    align-items: center;
+    background-color: #5372f0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0 10px;
+}
+.wrapper{
     background-color: #fff;
-    border-radius: 6px;
-    padding: 30px 25px 20px;
-    width: 445px;
+    border-radius: 13px;
+    max-width: 1000px;
+    overflow-x: hidden;
+    padding: 35px;
+    position: relative;
 }
-.sortable_list .item{
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: flex;
-    margin-bottom: 11px;
-    padding: 10px 13px;
-    justify-content: space-between;
-}
-.item .details{
+.wrapper .icon{
     align-items: center;
     display: flex;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 120px;
 }
-.item .details img{
+.icon:first-child{
+    background: linear-gradient(90deg, #fff 70%, transparent);
+    display: none;
+    left: 0;
+}
+.icon:last-child{
+    background: linear-gradient(-90deg, #fff 70%, transparent);
+    justify-content: flex-end;
+    right: 0;
+}
+.icon i{
+    background-color: #d8d5f2;
     border-radius: 50%;
-    height: 43px;
-    margin-right: 12px;
-    object-fit: cover;
-    width: 43px;
+    cursor: pointer;
+    font-size: 22px;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    width: 55px;
 }
-
-.item .details span{
+.icon i:hover{
+    background-color: #efedfb;
+}
+.icon:first-child i{
+    margin-left: 15px;
+}
+.icon:last-child i{
+    margin-right: 15px;
+}
+.wrapper .tab_box{
+    display: flex;
+    gap: 12px;
     font-size: 20px;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
-.item i{
-    color: #474747;
+.tab_box.dragging{
+    scroll-behavior: auto;
+    cursor: grab;
+}
+.tab_box .tab{
+    background-color: #f5f4fd;
+    border: 1px solid #d8d5f2;
+    border-radius: 30px;
+    cursor: pointer;
     font-size: 20px;
+    padding: 13px 20px;
+    white-space: nowrap;
 }
-.item.dragging :where(.details, i) {
-    opacity: 0;
+.tab_box.dragging .tab{
+    pointer-events: none;
+    user-select: none;
+}
+.tab_box .tab.active{
+    background-color: #5372f0;
+    border-color: transparent;
+    color: #fff;
 }
