@@ -1,0 +1,56 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    align-items: center;
+    background: #2980b9;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+a{
+    text-decoration: none;
+}
+ul{
+    list-style: none;
+}
+.wrapper{}
+.sortable_list{
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 30px 25px 20px;
+    width: 445px;
+}
+.sortable_list .item{
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    margin-bottom: 11px;
+    padding: 10px 13px;
+    justify-content: space-between;
+}
+.item .details{
+    align-items: center;
+    display: flex;
+}
+.item .details img{
+    border-radius: 50%;
+    height: 43px;
+    margin-right: 12px;
+    object-fit: cover;
+    width: 43px;
+}
+
+.item .details span{
+    font-size: 20px;
+}
+.item i{
+    color: #474747;
+    font-size: 20px;
+}
+.item.dragging :where(.details, i) {
+    opacity: 0;
+}
